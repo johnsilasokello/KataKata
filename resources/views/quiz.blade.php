@@ -1,17 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-<div id="app" data-subject="{{ $subject }}">
+<div id="app" data-subject="{{ $subject }}" data-level="{{ $level }}" data-difficulty="{{ $difficulty }}" data-xp="{{ $xpPerQ }}">
 
-    {{-- Header: subject + stats --}}
-    <div class="flex items-center justify-between mb-6">
+    {{-- Header --}}
+    <div class="flex items-center justify-between mb-4">
         <div>
-            <h2 class="text-2xl font-black text-green-700">{{ $subjectName }}</h2>
-            <p class="text-xs text-gray-400">UNEB-style questions</p>
+            <div class="flex items-center gap-2">
+                <h2 class="text-2xl font-black text-green-700">{{ $subjectName }}</h2>
+                <span class="text-xs font-bold px-2 py-0.5 rounded-full {{ $level === 'a' ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700' }}">
+                    {{ strtoupper($level) }}-Level
+                </span>
+                <span class="text-xs font-bold px-2 py-0.5 rounded-full
+                    {{ $difficulty === 'easy' ? 'bg-green-50 text-green-600' : ($difficulty === 'hard' ? 'bg-red-50 text-red-600' : 'bg-yellow-50 text-yellow-600') }}">
+                    {{ ucfirst($difficulty) }}
+                </span>
+            </div>
+            <p class="text-xs text-gray-400">+{{ $xpPerQ }} XP per correct answer</p>
         </div>
         <div class="flex gap-4 items-center">
             <div class="text-center">
-                <div id="streak-display" class="text-2xl font-black text-orange-500">🔥 <span id="streak-count">0</span></div>
+                <div class="text-2xl font-black text-orange-500">🔥 <span id="streak-count">0</span></div>
                 <div class="text-xs text-gray-400">streak</div>
             </div>
             <div class="text-center">
@@ -26,7 +35,7 @@
     </div>
 
     {{-- XP Bar --}}
-    <div class="bg-gray-200 rounded-full h-3 mb-6 overflow-hidden">
+    <div class="bg-gray-200 rounded-full h-3 mb-5 overflow-hidden">
         <div id="xp-bar" class="xp-bar bg-gradient-to-r from-green-500 to-yellow-400 h-3 rounded-full" style="width:0%"></div>
     </div>
 
@@ -46,25 +55,25 @@
     </div>
 
     {{-- Feedback / Explanation --}}
-    <div id="feedback-card" class="hidden bg-white rounded-2xl shadow-md p-5 mb-4 border-l-4" id="feedback-card">
+    <div id="feedback-card" class="hidden bg-white rounded-2xl shadow-md p-5 mb-4 border-l-4">
         <div class="flex items-center gap-2 mb-2">
             <span id="feedback-icon" class="text-2xl"></span>
             <span id="feedback-title" class="font-bold text-lg"></span>
         </div>
         <p id="explanation-text" class="text-gray-600 text-sm leading-relaxed"></p>
         <div class="flex gap-3 mt-4">
-            <button id="next-btn" onclick="nextQuestion()"
+            <button onclick="nextQuestion()"
                 class="bg-green-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-700 transition-colors text-sm">
                 Next Question →
             </button>
-            <button id="luganda-btn" onclick="toggleLuganda()"
+            <button onclick="toggleLuganda()" id="luganda-btn"
                 class="border border-green-300 text-green-700 px-4 py-2 rounded-full font-semibold hover:bg-green-50 transition-colors text-sm">
                 🇺🇬 Luganda
             </button>
         </div>
     </div>
 
-    {{-- Score summary (shown after 10 questions) --}}
+    {{-- Score summary --}}
     <div id="score-summary" class="hidden bg-white rounded-2xl shadow-lg p-6 text-center">
         <div class="text-5xl mb-3">🎉</div>
         <h3 class="text-2xl font-black text-green-700 mb-1">Round Complete!</h3>
@@ -73,46 +82,45 @@
             <button onclick="restartQuiz()" class="bg-green-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-green-700">
                 Play Again
             </button>
+            <a href="{{ route('home') }}" class="border-2 border-gray-200 text-gray-600 px-6 py-2.5 rounded-full font-semibold hover:bg-gray-50">
+                Change Subject
+            </a>
             <a href="{{ route('leaderboard') }}" class="border-2 border-yellow-400 text-yellow-700 px-6 py-2.5 rounded-full font-semibold hover:bg-yellow-50">
                 🏆 Leaderboard
             </a>
         </div>
     </div>
 
-    {{-- Question counter --}}
     <div class="text-center text-xs text-gray-400 mt-2">
         Question <span id="q-counter">1</span> of 10
     </div>
 </div>
 
 <script>
-const SUBJECT  = document.getElementById('app').dataset.subject;
-const CSRF     = document.querySelector('meta[name="csrf-token"]').content;
+const el      = document.getElementById('app').dataset;
+const SUBJECT = el.subject;
+const LEVEL   = el.level;
+const DIFF    = el.difficulty;
+const XP_PER  = parseInt(el.xp);
+const CSRF    = document.querySelector('meta[name="csrf-token"]').content;
 
-// Game state
 let state = JSON.parse(localStorage.getItem('katakataState') || '{}');
 state = Object.assign({ xp: 0, streak: 0, level: 'S1', qNum: 1, correct: 0 }, state);
 
-let currentQ     = null;
-let answered     = false;
-let lugandaMode  = false;
-let currentAnswer= '';
+let currentQ    = null;
+let answered    = false;
+let lugandaMode = false;
 
-const LEVELS = ['S1','S2','S3','S4','S5','S6'];
+const LEVELS       = ['S1','S2','S3','S4','S5','S6'];
 const XP_PER_LEVEL = 500;
 
 function xpToLevel(xp) {
-    const idx = Math.min(Math.floor(xp / XP_PER_LEVEL), LEVELS.length - 1);
-    return LEVELS[idx];
+    return LEVELS[Math.min(Math.floor(xp / XP_PER_LEVEL), LEVELS.length - 1)];
 }
-
 function xpProgress(xp) {
     return ((xp % XP_PER_LEVEL) / XP_PER_LEVEL) * 100;
 }
-
-function saveState() {
-    localStorage.setItem('katakataState', JSON.stringify(state));
-}
+function saveState() { localStorage.setItem('katakataState', JSON.stringify(state)); }
 
 function updateUI() {
     document.getElementById('xp-display').textContent   = state.xp;
@@ -127,19 +135,17 @@ async function loadQuestion() {
     document.getElementById('question-content').classList.add('hidden');
     document.getElementById('feedback-card').classList.add('hidden');
     document.getElementById('score-summary').classList.add('hidden');
+    document.getElementById('question-card').classList.remove('hidden');
     answered = false;
 
     try {
-        const res  = await fetch('{{ route("api.question") }}', {
+        const res = await fetch('{{ route("api.question") }}', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': CSRF },
-            body: JSON.stringify({ subject: SUBJECT }),
+            body: JSON.stringify({ subject: SUBJECT, level: LEVEL, difficulty: DIFF }),
         });
         currentQ = await res.json();
-    } catch(e) {
-        console.error(e);
-        return;
-    }
+    } catch(e) { return; }
 
     document.getElementById('loading').classList.add('hidden');
     document.getElementById('question-content').classList.remove('hidden');
@@ -155,41 +161,32 @@ async function loadQuestion() {
         btn.onclick = () => selectAnswer(i, btn);
         grid.appendChild(btn);
     });
-
     updateUI();
 }
 
 async function selectAnswer(index, btn) {
     if (answered) return;
     answered = true;
-    currentAnswer = currentQ.options[index];
 
-    const correct  = index === currentQ.answerIndex;
-    const allBtns  = document.querySelectorAll('.option-btn');
-
-    allBtns.forEach((b, i) => {
+    const correct = index === currentQ.answerIndex;
+    document.querySelectorAll('.option-btn').forEach((b, i) => {
         b.disabled = true;
         if (i === currentQ.answerIndex) {
             b.className = b.className.replace('bg-gray-50 hover:bg-green-50 border-gray-200 hover:border-green-400', 'bg-green-100 border-green-500 text-green-800');
         }
     });
-
     if (!correct) {
         btn.className = btn.className.replace('bg-gray-50 hover:bg-green-50 border-gray-200 hover:border-green-400', 'bg-red-100 border-red-500 text-red-800');
     }
 
     if (correct) {
-        state.xp     += 50 + (state.streak * 10);
+        const earned = XP_PER + (state.streak * 5);
+        state.xp     += earned;
         state.streak += 1;
         state.correct += 1;
         const newLevel = xpToLevel(state.xp);
-        if (newLevel !== state.level) {
-            state.level = newLevel;
-            triggerLevelUp();
-        }
-        if (state.streak > 0 && state.streak % 3 === 0) {
-            smallConfetti();
-        }
+        if (newLevel !== state.level) { state.level = newLevel; triggerLevelUp(); }
+        if (state.streak >= 3 && state.streak % 3 === 0) smallConfetti();
     } else {
         state.streak = 0;
     }
@@ -201,12 +198,11 @@ async function selectAnswer(index, btn) {
 
 async function showExplanation(correct) {
     const card = document.getElementById('feedback-card');
-    card.classList.remove('hidden');
-    card.classList.toggle('border-green-500', correct);
-    card.classList.toggle('border-red-400', !correct);
-
+    card.classList.remove('hidden', 'border-green-500', 'border-red-400');
+    card.classList.add(correct ? 'border-green-500' : 'border-red-400');
     document.getElementById('feedback-icon').textContent  = correct ? '✅' : '❌';
-    document.getElementById('feedback-title').textContent = correct ? 'Correct! +' + (50 + (state.streak > 0 ? (state.streak-1)*10 : 0)) + ' XP' : 'Not quite...';
+    const earned = correct ? XP_PER + ((state.streak - 1) * 5) : 0;
+    document.getElementById('feedback-title').textContent = correct ? `Correct! +${earned} XP` : 'Not quite...';
     document.getElementById('explanation-text').textContent = 'Loading explanation...';
 
     try {
@@ -217,22 +213,20 @@ async function showExplanation(correct) {
                 question: currentQ.question,
                 answer:   currentQ.options[currentQ.answerIndex],
                 subject:  SUBJECT,
+                level:    LEVEL,
                 luganda:  lugandaMode,
             }),
         });
         const data = await res.json();
         document.getElementById('explanation-text').textContent = data.explanation;
     } catch(e) {
-        document.getElementById('explanation-text').textContent = 'The correct answer is: ' + currentQ.options[currentQ.answerIndex];
+        document.getElementById('explanation-text').textContent = 'Correct answer: ' + currentQ.options[currentQ.answerIndex];
     }
 }
 
 function nextQuestion() {
     state.qNum++;
-    if (state.qNum > 10) {
-        showSummary();
-        return;
-    }
+    if (state.qNum > 10) { showSummary(); return; }
     saveState();
     loadQuestion();
 }
@@ -243,8 +237,8 @@ function showSummary() {
     document.getElementById('score-summary').classList.remove('hidden');
     document.getElementById('summary-correct').textContent = state.correct;
     bigConfetti();
-    state.qNum   = 1;
-    state.correct= 0;
+    state.qNum    = 1;
+    state.correct = 0;
     saveState();
 }
 
@@ -265,8 +259,7 @@ async function toggleLuganda() {
                 body: JSON.stringify({
                     question: currentQ.question,
                     answer:   currentQ.options[currentQ.answerIndex],
-                    subject:  SUBJECT,
-                    luganda:  lugandaMode,
+                    subject:  SUBJECT, level: LEVEL, luganda: lugandaMode,
                 }),
             });
             const data = await res.json();
@@ -287,14 +280,12 @@ function triggerLevelUp() {
 function smallConfetti() {
     confetti({ particleCount: 60, spread: 50, origin: { y: 0.6 } });
 }
-
 function bigConfetti() {
     confetti({ particleCount: 150, spread: 90, origin: { y: 0.5 } });
     setTimeout(() => confetti({ particleCount: 100, spread: 70, origin: { x: 0.1, y: 0.5 } }), 300);
     setTimeout(() => confetti({ particleCount: 100, spread: 70, origin: { x: 0.9, y: 0.5 } }), 600);
 }
 
-// Boot
 loadQuestion();
 </script>
 @endsection

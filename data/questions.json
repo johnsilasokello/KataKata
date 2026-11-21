@@ -1,110 +1,226 @@
 {
-  "biology": [
-    {
-      "question": "What is the powerhouse of the cell?",
-      "options": ["Mitochondria", "Nucleus", "Ribosome", "Golgi body"],
-      "answerIndex": 0
-    },
-    {
-      "question": "Which blood type is the universal donor?",
-      "options": ["O negative", "AB positive", "A positive", "B negative"],
-      "answerIndex": 0
-    },
-    {
-      "question": "What process do plants use to make food?",
-      "options": ["Photosynthesis", "Respiration", "Digestion", "Transpiration"],
-      "answerIndex": 0
-    },
-    {
-      "question": "How many chromosomes does a normal human cell contain?",
-      "options": ["46", "23", "48", "44"],
-      "answerIndex": 0
-    },
-    {
-      "question": "Which organ produces insulin?",
-      "options": ["Pancreas", "Liver", "Kidney", "Spleen"],
-      "answerIndex": 0
-    }
+  "o_biology_easy": [
+    {"question": "What is the powerhouse of the cell?", "options": ["Mitochondria", "Nucleus", "Ribosome", "Golgi body"], "answerIndex": 0},
+    {"question": "Which organ pumps blood around the body?", "options": ["Heart", "Lungs", "Liver", "Kidney"], "answerIndex": 0},
+    {"question": "What do plants need for photosynthesis?", "options": ["Sunlight, water, CO2", "Only water", "Only sunlight", "Oxygen and water"], "answerIndex": 0},
+    {"question": "How many legs does an insect have?", "options": ["6", "8", "4", "10"], "answerIndex": 0},
+    {"question": "What gas do humans breathe out?", "options": ["Carbon dioxide", "Oxygen", "Nitrogen", "Hydrogen"], "answerIndex": 0}
   ],
-  "history": [
-    {
-      "question": "In which year did Uganda gain independence?",
-      "options": ["1962", "1960", "1964", "1958"],
-      "answerIndex": 0
-    },
-    {
-      "question": "Who was the first President of Uganda?",
-      "options": ["Sir Edward Mutesa II", "Milton Obote", "Idi Amin", "Yoweri Museveni"],
-      "answerIndex": 0
-    },
-    {
-      "question": "Which colonial power ruled Uganda before independence?",
-      "options": ["Britain", "France", "Germany", "Belgium"],
-      "answerIndex": 0
-    },
-    {
-      "question": "In what year did Idi Amin seize power in Uganda?",
-      "options": ["1971", "1962", "1979", "1966"],
-      "answerIndex": 0
-    },
-    {
-      "question": "The Berlin Conference that divided Africa among European powers took place in which year?",
-      "options": ["1884", "1900", "1860", "1914"],
-      "answerIndex": 0
-    }
+  "o_biology_medium": [
+    {"question": "What is the chemical formula for glucose?", "options": ["C6H12O6", "CO2", "H2O", "C12H22O11"], "answerIndex": 0},
+    {"question": "Which blood type is the universal donor?", "options": ["O negative", "AB positive", "A positive", "B negative"], "answerIndex": 0},
+    {"question": "What is osmosis?", "options": ["Movement of water through a semipermeable membrane", "Movement of solute particles", "Active transport of ions", "Diffusion of gases"], "answerIndex": 0},
+    {"question": "How many chromosomes does a normal human cell contain?", "options": ["46", "23", "48", "44"], "answerIndex": 0},
+    {"question": "Which organ produces insulin?", "options": ["Pancreas", "Liver", "Kidney", "Spleen"], "answerIndex": 0}
   ],
-  "geography": [
-    {
-      "question": "What is the capital city of Uganda?",
-      "options": ["Kampala", "Entebbe", "Jinja", "Gulu"],
-      "answerIndex": 0
-    },
-    {
-      "question": "Lake Victoria is shared by Uganda, Kenya, and which other country?",
-      "options": ["Tanzania", "Rwanda", "Burundi", "Congo"],
-      "answerIndex": 0
-    },
-    {
-      "question": "What is the highest mountain in Uganda?",
-      "options": ["Mount Rwenzori", "Mount Elgon", "Mount Moroto", "Mount Muhavura"],
-      "answerIndex": 0
-    },
-    {
-      "question": "The River Nile starts its journey from which Ugandan lake?",
-      "options": ["Lake Victoria", "Lake Albert", "Lake Edward", "Lake Kyoga"],
-      "answerIndex": 0
-    },
-    {
-      "question": "Which district in Uganda is the largest by area?",
-      "options": ["Kotido", "Kampala", "Wakiso", "Gulu"],
-      "answerIndex": 0
-    }
+  "o_biology_hard": [
+    {"question": "During which phase of mitosis do chromosomes align at the cell's equator?", "options": ["Metaphase", "Anaphase", "Prophase", "Telophase"], "answerIndex": 0},
+    {"question": "What enzyme unzips the DNA double helix during replication?", "options": ["Helicase", "Polymerase", "Ligase", "Primase"], "answerIndex": 0},
+    {"question": "In which part of the chloroplast does the Calvin cycle occur?", "options": ["Stroma", "Thylakoid membrane", "Grana", "Outer membrane"], "answerIndex": 0},
+    {"question": "What is the role of tRNA during translation?", "options": ["Carries amino acids to the ribosome", "Carries the genetic code from DNA", "Forms the ribosome structure", "Breaks down proteins"], "answerIndex": 0},
+    {"question": "Which type of mutation involves a change in a single base pair?", "options": ["Point mutation", "Frameshift mutation", "Chromosomal deletion", "Inversion"], "answerIndex": 0}
   ],
-  "science": [
-    {
-      "question": "What is the chemical formula for water?",
-      "options": ["H2O", "CO2", "NaCl", "O2"],
-      "answerIndex": 0
-    },
-    {
-      "question": "What force keeps planets in orbit around the sun?",
-      "options": ["Gravity", "Magnetism", "Friction", "Tension"],
-      "answerIndex": 0
-    },
-    {
-      "question": "What is the speed of light approximately?",
-      "options": ["300,000 km/s", "150,000 km/s", "1,000 km/s", "30,000 km/s"],
-      "answerIndex": 0
-    },
-    {
-      "question": "What is the atomic number of Carbon?",
-      "options": ["6", "12", "8", "14"],
-      "answerIndex": 0
-    },
-    {
-      "question": "Which gas do plants absorb during photosynthesis?",
-      "options": ["Carbon dioxide", "Oxygen", "Nitrogen", "Hydrogen"],
-      "answerIndex": 0
-    }
+  "o_history_easy": [
+    {"question": "In which year did Uganda gain independence?", "options": ["1962", "1960", "1964", "1958"], "answerIndex": 0},
+    {"question": "Who was the first President of Uganda?", "options": ["Sir Edward Mutesa II", "Milton Obote", "Idi Amin", "Yoweri Museveni"], "answerIndex": 0},
+    {"question": "Which colonial power ruled Uganda?", "options": ["Britain", "France", "Germany", "Belgium"], "answerIndex": 0},
+    {"question": "What year did World War II end?", "options": ["1945", "1939", "1944", "1950"], "answerIndex": 0},
+    {"question": "Who was the first president of the United States?", "options": ["George Washington", "Abraham Lincoln", "Thomas Jefferson", "John Adams"], "answerIndex": 0}
+  ],
+  "o_history_medium": [
+    {"question": "In what year did Idi Amin seize power in Uganda?", "options": ["1971", "1962", "1979", "1966"], "answerIndex": 0},
+    {"question": "The Berlin Conference that divided Africa took place in which year?", "options": ["1884", "1900", "1860", "1914"], "answerIndex": 0},
+    {"question": "Which movement fought for Indian independence?", "options": ["Indian National Congress", "Muslim League", "Hindu Mahasabha", "Swaraj Party"], "answerIndex": 0},
+    {"question": "What was the name of Uganda's pre-independence legislative body?", "options": ["Uganda Legislative Council", "Uganda Parliament", "Buganda Lukiiko", "East Africa Assembly"], "answerIndex": 0},
+    {"question": "In which year was the Organisation of African Unity (OAU) founded?", "options": ["1963", "1960", "1945", "1957"], "answerIndex": 0}
+  ],
+  "o_history_hard": [
+    {"question": "What policy did the British use to govern Uganda that relied on existing chiefs?", "options": ["Indirect Rule", "Direct Rule", "Assimilation", "Association"], "answerIndex": 0},
+    {"question": "The 1900 Buganda Agreement gave Buganda landowners how many square miles?", "options": ["8,000", "5,000", "12,000", "3,000"], "answerIndex": 0},
+    {"question": "Which Ugandan nationalist party was founded by Ignatius Musazi in 1952?", "options": ["Uganda National Congress", "Democratic Party", "Uganda People's Congress", "Kabaka Yekka"], "answerIndex": 0},
+    {"question": "What was the primary cause of the 1966 constitutional crisis in Uganda?", "options": ["Obote suspended the constitution and detained ministers", "Buganda declared independence", "Britain refused to leave", "Army mutiny"], "answerIndex": 0},
+    {"question": "Which treaty ended World War I?", "options": ["Treaty of Versailles", "Treaty of Paris", "Treaty of Berlin", "Treaty of Brest-Litovsk"], "answerIndex": 0}
+  ],
+  "o_geography_easy": [
+    {"question": "What is the capital city of Uganda?", "options": ["Kampala", "Entebbe", "Jinja", "Gulu"], "answerIndex": 0},
+    {"question": "Which is the largest continent?", "options": ["Asia", "Africa", "Europe", "South America"], "answerIndex": 0},
+    {"question": "What is the longest river in the world?", "options": ["Nile", "Amazon", "Congo", "Mississippi"], "answerIndex": 0},
+    {"question": "How many continents are there on Earth?", "options": ["7", "5", "6", "8"], "answerIndex": 0},
+    {"question": "Which ocean is the largest?", "options": ["Pacific", "Atlantic", "Indian", "Arctic"], "answerIndex": 0}
+  ],
+  "o_geography_medium": [
+    {"question": "Lake Victoria is shared by Uganda, Kenya, and which other country?", "options": ["Tanzania", "Rwanda", "Burundi", "Congo"], "answerIndex": 0},
+    {"question": "What is the highest mountain in Uganda?", "options": ["Mount Rwenzori", "Mount Elgon", "Mount Moroto", "Mount Muhavura"], "answerIndex": 0},
+    {"question": "The River Nile starts its journey from which Ugandan lake?", "options": ["Lake Victoria", "Lake Albert", "Lake Edward", "Lake Kyoga"], "answerIndex": 0},
+    {"question": "What type of climate does Uganda mostly have?", "options": ["Equatorial", "Desert", "Temperate", "Mediterranean"], "answerIndex": 0},
+    {"question": "Which Ugandan district borders Kenya to the east?", "options": ["Mbale", "Kampala", "Mbarara", "Arua"], "answerIndex": 0}
+  ],
+  "o_geography_hard": [
+    {"question": "What is the approximate area of Lake Victoria in square kilometres?", "options": ["68,800", "35,000", "120,000", "50,000"], "answerIndex": 0},
+    {"question": "Which fault system runs through western Uganda creating the Albertine Rift?", "options": ["East African Rift", "Red Sea Rift", "Afar Triangle", "Shire Rift"], "answerIndex": 0},
+    {"question": "What is the name of Uganda's main watershed that divides drainage to Lake Victoria and the Nile?", "options": ["Kyoga Basin divide", "Rwenzori divide", "Elgon divide", "Acholi plateau"], "answerIndex": 0},
+    {"question": "In human geography, what term describes movement of people from rural to urban areas?", "options": ["Rural-urban migration", "Emigration", "Urbanisation", "Gentrification"], "answerIndex": 0},
+    {"question": "Which type of rock is formed from cooled magma?", "options": ["Igneous", "Sedimentary", "Metamorphic", "Limestone"], "answerIndex": 0}
+  ],
+  "o_science_easy": [
+    {"question": "What is the chemical formula for water?", "options": ["H2O", "CO2", "NaCl", "O2"], "answerIndex": 0},
+    {"question": "What force pulls objects toward Earth?", "options": ["Gravity", "Magnetism", "Friction", "Tension"], "answerIndex": 0},
+    {"question": "What do we call the basic unit of matter?", "options": ["Atom", "Molecule", "Cell", "Electron"], "answerIndex": 0},
+    {"question": "Which planet is closest to the Sun?", "options": ["Mercury", "Venus", "Earth", "Mars"], "answerIndex": 0},
+    {"question": "What energy source does the Sun provide?", "options": ["Solar energy", "Wind energy", "Nuclear energy", "Chemical energy"], "answerIndex": 0}
+  ],
+  "o_science_medium": [
+    {"question": "What is the atomic number of Carbon?", "options": ["6", "12", "8", "14"], "answerIndex": 0},
+    {"question": "What is the speed of light approximately?", "options": ["300,000 km/s", "150,000 km/s", "1,000 km/s", "30,000 km/s"], "answerIndex": 0},
+    {"question": "What type of bond holds water molecules together?", "options": ["Hydrogen bond", "Ionic bond", "Covalent bond", "Metallic bond"], "answerIndex": 0},
+    {"question": "What is Newton's second law of motion?", "options": ["F = ma", "F = mv", "E = mc2", "P = mv"], "answerIndex": 0},
+    {"question": "Which gas do plants absorb during photosynthesis?", "options": ["Carbon dioxide", "Oxygen", "Nitrogen", "Hydrogen"], "answerIndex": 0}
+  ],
+  "o_science_hard": [
+    {"question": "What is the SI unit of electric charge?", "options": ["Coulomb", "Ampere", "Volt", "Farad"], "answerIndex": 0},
+    {"question": "In a series circuit, what happens to resistance as more resistors are added?", "options": ["Increases", "Decreases", "Stays the same", "Becomes zero"], "answerIndex": 0},
+    {"question": "What is the pH of a neutral solution at 25°C?", "options": ["7", "0", "14", "5"], "answerIndex": 0},
+    {"question": "Which law states that the pressure of a gas is inversely proportional to its volume at constant temperature?", "options": ["Boyle's Law", "Charles's Law", "Gay-Lussac's Law", "Avogadro's Law"], "answerIndex": 0},
+    {"question": "What particle has no charge in the nucleus?", "options": ["Neutron", "Proton", "Electron", "Positron"], "answerIndex": 0}
+  ],
+  "o_math_easy": [
+    {"question": "What is 15% of 200?", "options": ["30", "25", "35", "20"], "answerIndex": 0},
+    {"question": "Solve: 3x = 15. What is x?", "options": ["5", "12", "45", "3"], "answerIndex": 0},
+    {"question": "What is the area of a rectangle with length 8cm and width 5cm?", "options": ["40 cm²", "26 cm²", "13 cm²", "80 cm²"], "answerIndex": 0},
+    {"question": "What is the square root of 144?", "options": ["12", "14", "11", "13"], "answerIndex": 0},
+    {"question": "What is 2³?", "options": ["8", "6", "9", "16"], "answerIndex": 0}
+  ],
+  "o_math_medium": [
+    {"question": "Factorise: x² - 5x + 6", "options": ["(x-2)(x-3)", "(x+2)(x+3)", "(x-6)(x+1)", "(x-1)(x-6)"], "answerIndex": 0},
+    {"question": "If sin θ = 0.5, what is θ?", "options": ["30°", "45°", "60°", "90°"], "answerIndex": 0},
+    {"question": "What is the gradient of the line y = 3x - 7?", "options": ["3", "-7", "7", "-3"], "answerIndex": 0},
+    {"question": "Simplify: (x³)(x⁴)", "options": ["x⁷", "x¹²", "x⁴ₓ³", "2x⁷"], "answerIndex": 0},
+    {"question": "What is the circumference of a circle with radius 7cm? (use π=22/7)", "options": ["44 cm", "154 cm", "22 cm", "49 cm"], "answerIndex": 0}
+  ],
+  "o_math_hard": [
+    {"question": "Solve the quadratic: x² - 7x + 10 = 0", "options": ["x=2 or x=5", "x=1 or x=10", "x=-2 or x=-5", "x=3 or x=4"], "answerIndex": 0},
+    {"question": "What is the derivative of f(x) = x³ + 2x?", "options": ["3x² + 2", "3x² + 2x", "x² + 2", "3x + 2"], "answerIndex": 0},
+    {"question": "If log₂(x) = 5, what is x?", "options": ["32", "10", "25", "16"], "answerIndex": 0},
+    {"question": "What is the sum of interior angles of a hexagon?", "options": ["720°", "540°", "900°", "360°"], "answerIndex": 0},
+    {"question": "Solve: 2^(x+1) = 32", "options": ["4", "5", "3", "6"], "answerIndex": 0}
+  ],
+  "o_english_easy": [
+    {"question": "What is the plural of 'child'?", "options": ["Children", "Childs", "Childes", "Child"], "answerIndex": 0},
+    {"question": "Which is a synonym for 'happy'?", "options": ["Joyful", "Sad", "Angry", "Tired"], "answerIndex": 0},
+    {"question": "What punctuation ends a question?", "options": ["Question mark", "Full stop", "Comma", "Exclamation mark"], "answerIndex": 0},
+    {"question": "Which word is a noun?", "options": ["Mountain", "Run", "Beautiful", "Quickly"], "answerIndex": 0},
+    {"question": "What is the past tense of 'eat'?", "options": ["Ate", "Eated", "Eaten", "Aten"], "answerIndex": 0}
+  ],
+  "o_english_medium": [
+    {"question": "What literary device is 'the wind whispered through the trees'?", "options": ["Personification", "Simile", "Metaphor", "Alliteration"], "answerIndex": 0},
+    {"question": "Which sentence uses the passive voice?", "options": ["The book was read by John.", "John read the book.", "John is reading.", "John reads books."], "answerIndex": 0},
+    {"question": "What is an antonym for 'ancient'?", "options": ["Modern", "Old", "Historic", "Aged"], "answerIndex": 0},
+    {"question": "In which tense is: 'She will have finished by noon'?", "options": ["Future perfect", "Simple future", "Present perfect", "Past perfect"], "answerIndex": 0},
+    {"question": "What is the main purpose of a thesis statement?", "options": ["States the main argument of an essay", "Introduces background information", "Concludes the essay", "Provides evidence"], "answerIndex": 0}
+  ],
+  "o_english_hard": [
+    {"question": "What is the term for a word that sounds like what it represents, like 'buzz'?", "options": ["Onomatopoeia", "Alliteration", "Assonance", "Consonance"], "answerIndex": 0},
+    {"question": "Which grammatical mood expresses a wish or hypothetical situation?", "options": ["Subjunctive", "Indicative", "Imperative", "Interrogative"], "answerIndex": 0},
+    {"question": "What is a Bildungsroman?", "options": ["A coming-of-age novel", "A war novel", "A political novel", "A mystery novel"], "answerIndex": 0},
+    {"question": "In poetry, what is iambic pentameter?", "options": ["10 syllables per line, alternating unstressed/stressed", "8 syllables per line", "12 syllables per line", "Free verse with 5 stresses"], "answerIndex": 0},
+    {"question": "What rhetorical device involves asking a question to make a point, not to get an answer?", "options": ["Rhetorical question", "Hypophora", "Epistrophe", "Anaphora"], "answerIndex": 0}
+  ],
+  "a_biology_medium": [
+    {"question": "What is the role of ATP synthase in cellular respiration?", "options": ["Synthesises ATP using proton gradient", "Breaks down glucose", "Transports electrons", "Produces NADH"], "answerIndex": 0},
+    {"question": "Which stage of cellular respiration produces the most ATP?", "options": ["Oxidative phosphorylation", "Glycolysis", "Krebs cycle", "Pyruvate oxidation"], "answerIndex": 0},
+    {"question": "What is the Hardy-Weinberg equilibrium used for?", "options": ["Predicting allele frequencies in a non-evolving population", "Measuring mutation rates", "Calculating natural selection pressure", "Determining gene linkage"], "answerIndex": 0},
+    {"question": "Which hormone stimulates the release of FSH and LH from the pituitary?", "options": ["GnRH", "Oestrogen", "Progesterone", "Testosterone"], "answerIndex": 0},
+    {"question": "What is the function of the sinoatrial node?", "options": ["Initiates the heartbeat (pacemaker)", "Prevents backflow of blood", "Pumps blood to the lungs", "Regulates blood pressure"], "answerIndex": 0}
+  ],
+  "a_biology_hard": [
+    {"question": "In oxidative phosphorylation, what is the final electron acceptor in the electron transport chain?", "options": ["Oxygen", "NAD+", "FAD", "Carbon dioxide"], "answerIndex": 0},
+    {"question": "What mechanism drives speciation in allopatric speciation?", "options": ["Geographic isolation preventing gene flow", "Reproductive behaviour differences", "Polyploidy", "Hybridisation"], "answerIndex": 0},
+    {"question": "What is the significance of the lac operon in E. coli?", "options": ["Gene regulation by inducible enzyme synthesis", "DNA repair mechanism", "Protein folding pathway", "Cell division control"], "answerIndex": 0},
+    {"question": "In the sliding filament theory, what causes muscle contraction?", "options": ["Myosin heads pull actin filaments inward using ATP", "Actin filaments shorten", "Sarcomere proteins expand", "Calcium activates myosin directly"], "answerIndex": 0},
+    {"question": "What is semi-conservative replication?", "options": ["Each new DNA molecule contains one original and one new strand", "Both strands of parent DNA are preserved intact", "New DNA is synthesised from scratch", "Only one strand is replicated"], "answerIndex": 0}
+  ],
+  "a_chemistry_medium": [
+    {"question": "What is the IUPAC name for CH3CH2OH?", "options": ["Ethanol", "Methanol", "Propanol", "Ethanal"], "answerIndex": 0},
+    {"question": "Which type of isomerism is shown by but-1-ene and but-2-ene?", "options": ["Positional isomerism", "Chain isomerism", "Functional group isomerism", "Optical isomerism"], "answerIndex": 0},
+    {"question": "What is the enthalpy change when one mole of a compound is formed from its elements in standard states?", "options": ["Standard enthalpy of formation", "Lattice enthalpy", "Bond enthalpy", "Enthalpy of combustion"], "answerIndex": 0},
+    {"question": "In an electrolytic cell, where does oxidation occur?", "options": ["Anode", "Cathode", "Salt bridge", "Electrolyte"], "answerIndex": 0},
+    {"question": "What is Hess's Law?", "options": ["Enthalpy change is independent of reaction pathway", "Entropy always increases", "Rate doubles per 10°C rise", "Equilibrium shifts to oppose change"], "answerIndex": 0}
+  ],
+  "a_chemistry_hard": [
+    {"question": "What is the hybridisation of carbon in ethyne (acetylene)?", "options": ["sp", "sp2", "sp3", "sp3d"], "answerIndex": 0},
+    {"question": "In the Born-Haber cycle, what is lattice enthalpy a measure of?", "options": ["Energy released forming an ionic lattice from gaseous ions", "Energy to break a covalent bond", "Electron affinity", "Ionisation energy"], "answerIndex": 0},
+    {"question": "What does Le Chatelier's principle predict?", "options": ["Equilibrium shifts to minimise an applied stress", "Rate increases with concentration", "Products always favoured at high temperature", "Catalyst shifts equilibrium"], "answerIndex": 0},
+    {"question": "Which type of reaction mechanism involves a carbocation intermediate?", "options": ["SN1", "SN2", "E2", "Addition-elimination"], "answerIndex": 0},
+    {"question": "What property of transition metals allows them to form coloured compounds?", "options": ["Partially filled d orbitals absorbing visible light", "Variable oxidation states only", "High electronegativity", "Large atomic radius"], "answerIndex": 0}
+  ],
+  "a_physics_medium": [
+    {"question": "What is the formula for kinetic energy?", "options": ["½mv²", "mv", "mgh", "F×d"], "answerIndex": 0},
+    {"question": "What does Ohm's Law state?", "options": ["V = IR", "V = I/R", "P = IV²", "R = V²/I"], "answerIndex": 0},
+    {"question": "What is the photoelectric effect?", "options": ["Emission of electrons when light hits a metal surface", "Emission of light by electrons", "Refraction of light by metals", "Absorption of photons by electrons"], "answerIndex": 0},
+    {"question": "In simple harmonic motion, when is velocity maximum?", "options": ["At equilibrium position", "At maximum displacement", "At half amplitude", "At zero displacement endpoint"], "answerIndex": 0},
+    {"question": "What is the unit of electric potential difference?", "options": ["Volt", "Ampere", "Ohm", "Watt"], "answerIndex": 0}
+  ],
+  "a_physics_hard": [
+    {"question": "What does the de Broglie hypothesis state?", "options": ["All matter has an associated wavelength λ = h/mv", "Light behaves only as a wave", "Electrons orbit in fixed paths", "Energy is quantised in levels"], "answerIndex": 0},
+    {"question": "In special relativity, what happens to the mass of an object as it approaches the speed of light?", "options": ["It increases toward infinity", "It decreases to zero", "It stays constant", "It oscillates"], "answerIndex": 0},
+    {"question": "What is the Heisenberg uncertainty principle?", "options": ["You cannot simultaneously know exact position and momentum", "Energy levels are uncertain", "Electron spin cannot be determined", "Wave function collapses on measurement"], "answerIndex": 0},
+    {"question": "Which equation relates energy and frequency of a photon?", "options": ["E = hf", "E = mc²", "E = ½mv²", "E = qV"], "answerIndex": 0},
+    {"question": "What is the Doppler effect in sound?", "options": ["Change in observed frequency due to relative motion", "Change in amplitude due to distance", "Reflection of sound waves", "Interference of sound waves"], "answerIndex": 0}
+  ],
+  "a_history_medium": [
+    {"question": "What was the primary ideology behind European imperialism in Africa?", "options": ["Social Darwinism and civilising mission", "Economic cooperation", "Democratic expansion", "Religious tolerance"], "answerIndex": 0},
+    {"question": "What was the Scramble for Africa?", "options": ["European powers rapidly colonising Africa 1880-1900", "African nations competing for resources", "Arab expansion into sub-Saharan Africa", "Cold War proxy conflicts in Africa"], "answerIndex": 0},
+    {"question": "Which Ugandan king collaborated with the British during the colonial period?", "options": ["Kabaka Mutesa I", "Kabaka Mwanga", "Omukama Kabalega", "Omugabe Ntare"], "answerIndex": 0},
+    {"question": "What was decolonisation?", "options": ["Process of African nations gaining independence from colonial rule", "Europeans leaving Africa voluntarily", "Economic withdrawal of foreign investment", "Cultural assimilation policy"], "answerIndex": 0},
+    {"question": "Which ideology did Kwame Nkrumah champion for Africa?", "options": ["Pan-Africanism", "Negritude", "African Socialism only", "Capitalism"], "answerIndex": 0}
+  ],
+  "a_history_hard": [
+    {"question": "What were the terms of the 1900 Buganda Agreement that most benefited the Protestant chiefs?", "options": ["Land allocation (mailo land) and political control over counties", "Military alliance with Britain", "Tax exemptions for all Baganda", "Direct rule under a British governor"], "answerIndex": 0},
+    {"question": "How did the introduction of cotton cultivation reshape Ugandan society under British rule?", "options": ["Created a cash economy, shifted labour and increased African trader class", "Eliminated subsistence farming entirely", "Caused immediate industrialisation", "Had no significant social impact"], "answerIndex": 0},
+    {"question": "What was the significance of the 1953-55 Kabaka Crisis?", "options": ["Showed the limits of indirect rule and intensified Ugandan nationalism", "Led directly to Ugandan independence", "Ended British rule in East Africa", "United all Ugandan ethnic groups"], "answerIndex": 0},
+    {"question": "In Cold War context, why did the USSR and USA compete for influence in post-colonial Africa?", "options": ["Strategic resources, ideology export, and proxy military advantages", "Only for diamond resources", "To prevent Islamic expansion", "For agricultural trade routes"], "answerIndex": 0},
+    {"question": "What was the Lyttelton Constitution of 1954 designed to do in Uganda?", "options": ["Introduce ministerial government preparing for self-rule", "Extend British rule by 50 years", "Create a federation of East Africa", "Remove Buganda's special status"], "answerIndex": 0}
+  ],
+  "a_geography_medium": [
+    {"question": "What is plate tectonics?", "options": ["Theory that Earth's lithosphere is divided into moving plates", "Theory of continental climate change", "Study of volcanic eruptions", "Theory of ocean current formation"], "answerIndex": 0},
+    {"question": "What is the demographic transition model?", "options": ["Model showing changes in birth/death rates as countries develop", "Model of rural-urban migration", "Theory of population decline", "Model of economic growth stages"], "answerIndex": 0},
+    {"question": "What causes the formation of ox-bow lakes?", "options": ["Meander cut-off in rivers", "Glacial erosion", "Volcanic activity", "Coastal deposition"], "answerIndex": 0},
+    {"question": "What is the Coriolis effect?", "options": ["Deflection of winds due to Earth's rotation", "Ocean current caused by temperature", "Tidal force from the Moon", "Pressure gradient causing winds"], "answerIndex": 0},
+    {"question": "What is the relationship between altitude and temperature?", "options": ["Temperature decreases as altitude increases", "Temperature increases with altitude", "No relationship", "Temperature increases then decreases"], "answerIndex": 0}
+  ],
+  "a_geography_hard": [
+    {"question": "In the Hjulstrom curve, what does the competence of a river represent?", "options": ["Maximum particle size a stream can transport at a given velocity", "Total volume of water carried", "Depth of channel erosion", "Rate of deposition"], "answerIndex": 0},
+    {"question": "What distinguishes a syncline from an anticline in fold mountain formation?", "options": ["Syncline folds downward; anticline folds upward", "Syncline folds upward; anticline folds downward", "Both fold upward at different angles", "Synclines form near oceans only"], "answerIndex": 0},
+    {"question": "In population geography, what is the dependency ratio?", "options": ["Ratio of non-working age population to working age population", "Ratio of rural to urban population", "Birth rate minus death rate", "Ratio of employed to unemployed"], "answerIndex": 0},
+    {"question": "What is the multiplier effect in economic geography?", "options": ["Initial investment generates further rounds of economic activity", "Population growth multiplies resource needs", "Tax revenue multiplied by GDP", "Export growth rate"], "answerIndex": 0},
+    {"question": "What processes drive longshore drift?", "options": ["Oblique waves moving sediment along a coast, returned perpendicular by backwash", "Tidal currents only", "Wind erosion along the coast", "River sediment deposition"], "answerIndex": 0}
+  ],
+  "a_math_medium": [
+    {"question": "What is the derivative of sin(x)?", "options": ["cos(x)", "-cos(x)", "-sin(x)", "tan(x)"], "answerIndex": 0},
+    {"question": "Evaluate: ∫2x dx", "options": ["x² + C", "2x² + C", "x + C", "2 + C"], "answerIndex": 0},
+    {"question": "What is the expansion of (a+b)²?", "options": ["a² + 2ab + b²", "a² + b²", "2a + 2b", "a² - 2ab + b²"], "answerIndex": 0},
+    {"question": "If P(A) = 0.3 and P(B) = 0.4 and A,B are independent, what is P(A and B)?", "options": ["0.12", "0.7", "0.1", "0.34"], "answerIndex": 0},
+    {"question": "What is the modulus of the complex number 3 + 4i?", "options": ["5", "7", "1", "12"], "answerIndex": 0}
+  ],
+  "a_math_hard": [
+    {"question": "What is the second derivative test used for?", "options": ["Classifying stationary points as maxima, minima or inflection points", "Finding roots of equations", "Testing for convergence of series", "Determining asymptotes"], "answerIndex": 0},
+    {"question": "What does the Fundamental Theorem of Calculus state?", "options": ["Differentiation and integration are inverse operations", "Every continuous function has an integral", "Limits exist for all functions", "Derivatives are always continuous"], "answerIndex": 0},
+    {"question": "In a geometric progression with first term 2 and common ratio 3, what is the 5th term?", "options": ["162", "32", "243", "486"], "answerIndex": 0},
+    {"question": "What is the general solution of dy/dx = y?", "options": ["y = Aeˣ", "y = ex + C", "y = Ae^-x", "y = ln(x) + C"], "answerIndex": 0},
+    {"question": "Using de Moivre's theorem, what is (cos θ + i sin θ)^n?", "options": ["cos(nθ) + i sin(nθ)", "n·cos θ + n·i sin θ", "cos(θ/n) + i sin(θ/n)", "n(cos θ + i sin θ)"], "answerIndex": 0}
+  ],
+  "a_economics_medium": [
+    {"question": "What is the law of diminishing marginal returns?", "options": ["Adding more of one input eventually yields smaller increases in output", "Returns decrease as prices rise", "Profits fall as markets grow", "Investment returns reduce over time"], "answerIndex": 0},
+    {"question": "What is GDP?", "options": ["Total value of goods and services produced in a country in a year", "Government spending total", "Total exports minus imports", "National savings rate"], "answerIndex": 0},
+    {"question": "What is price elasticity of demand?", "options": ["Responsiveness of quantity demanded to a change in price", "Change in supply due to price", "Rate of price inflation", "Market equilibrium price"], "answerIndex": 0},
+    {"question": "In a monopoly, what is the relationship between price and marginal revenue?", "options": ["Price exceeds marginal revenue", "Price equals marginal revenue", "MR exceeds price", "They are unrelated"], "answerIndex": 0},
+    {"question": "What is the multiplier in Keynesian economics?", "options": ["Ratio of change in income to change in autonomous expenditure", "Rate of money creation by banks", "Tax revenue as a proportion of GDP", "Inflation rate multiplier"], "answerIndex": 0}
+  ],
+  "a_economics_hard": [
+    {"question": "What is the Laffer Curve?", "options": ["Shows relationship between tax rates and tax revenue, with peak at optimal rate", "Shows relationship between inflation and unemployment", "Shows GDP growth vs investment", "Shows trade balance vs exchange rate"], "answerIndex": 0},
+    {"question": "In game theory, what is a Nash Equilibrium?", "options": ["State where no player benefits from changing strategy given others' strategies", "State of maximum profit for all players", "Optimal outcome requiring cooperation", "Zero-sum game solution"], "answerIndex": 0},
+    {"question": "What is moral hazard in economics?", "options": ["When insured parties take more risk because costs are borne by others", "Ethical business standards", "Market failure due to externalities", "Information asymmetry in product markets"], "answerIndex": 0},
+    {"question": "What does the Gini coefficient measure?", "options": ["Income inequality within a population (0=perfect equality, 1=perfect inequality)", "Economic growth rate", "Trade surplus as share of GDP", "Inflation relative to neighbouring countries"], "answerIndex": 0},
+    {"question": "What distinguishes a monopsony from a monopoly?", "options": ["Monopsony = single buyer; monopoly = single seller", "Monopsony = single seller; monopoly = single buyer", "Both refer to single sellers in different markets", "Monopsony involves labour markets only"], "answerIndex": 0}
   ]
 }
