@@ -1,0 +1,110 @@
+{
+  "biology": [
+    {
+      "question": "What is the powerhouse of the cell?",
+      "options": ["Mitochondria", "Nucleus", "Ribosome", "Golgi body"],
+      "answerIndex": 0
+    },
+    {
+      "question": "Which blood type is the universal donor?",
+      "options": ["O negative", "AB positive", "A positive", "B negative"],
+      "answerIndex": 0
+    },
+    {
+      "question": "What process do plants use to make food?",
+      "options": ["Photosynthesis", "Respiration", "Digestion", "Transpiration"],
+      "answerIndex": 0
+    },
+    {
+      "question": "How many chromosomes does a normal human cell contain?",
+      "options": ["46", "23", "48", "44"],
+      "answerIndex": 0
+    },
+    {
+      "question": "Which organ produces insulin?",
+      "options": ["Pancreas", "Liver", "Kidney", "Spleen"],
+      "answerIndex": 0
+    }
+  ],
+  "history": [
+    {
+      "question": "In which year did Uganda gain independence?",
+      "options": ["1962", "1960", "1964", "1958"],
+      "answerIndex": 0
+    },
+    {
+      "question": "Who was the first President of Uganda?",
+      "options": ["Sir Edward Mutesa II", "Milton Obote", "Idi Amin", "Yoweri Museveni"],
+      "answerIndex": 0
+    },
+    {
+      "question": "Which colonial power ruled Uganda before independence?",
+      "options": ["Britain", "France", "Germany", "Belgium"],
+      "answerIndex": 0
+    },
+    {
+      "question": "In what year did Idi Amin seize power in Uganda?",
+      "options": ["1971", "1962", "1979", "1966"],
+      "answerIndex": 0
+    },
+    {
+      "question": "The Berlin Conference that divided Africa among European powers took place in which year?",
+      "options": ["1884", "1900", "1860", "1914"],
+      "answerIndex": 0
+    }
+  ],
+  "geography": [
+    {
+      "question": "What is the capital city of Uganda?",
+      "options": ["Kampala", "Entebbe", "Jinja", "Gulu"],
+      "answerIndex": 0
+    },
+    {
+      "question": "Lake Victoria is shared by Uganda, Kenya, and which other country?",
+      "options": ["Tanzania", "Rwanda", "Burundi", "Congo"],
+      "answerIndex": 0
+    },
+    {
+      "question": "What is the highest mountain in Uganda?",
+      "options": ["Mount Rwenzori", "Mount Elgon", "Mount Moroto", "Mount Muhavura"],
+      "answerIndex": 0
+    },
+    {
+      "question": "The River Nile starts its journey from which Ugandan lake?",
+      "options": ["Lake Victoria", "Lake Albert", "Lake Edward", "Lake Kyoga"],
+      "answerIndex": 0
+    },
+    {
+      "question": "Which district in Uganda is the largest by area?",
+      "options": ["Kotido", "Kampala", "Wakiso", "Gulu"],
+      "answerIndex": 0
+    }
+  ],
+  "science": [
+    {
+      "question": "What is the chemical formula for water?",
+      "options": ["H2O", "CO2", "NaCl", "O2"],
+      "answerIndex": 0
+    },
+    {
+      "question": "What force keeps planets in orbit around the sun?",
+      "options": ["Gravity", "Magnetism", "Friction", "Tension"],
+      "answerIndex": 0
+    },
+    {
+      "question": "What is the speed of light approximately?",
+      "options": ["300,000 km/s", "150,000 km/s", "1,000 km/s", "30,000 km/s"],
+      "answerIndex": 0
+    },
+    {
+      "question": "What is the atomic number of Carbon?",
+      "options": ["6", "12", "8", "14"],
+      "answerIndex": 0
+    },
+    {
+      "question": "Which gas do plants absorb during photosynthesis?",
+      "options": ["Carbon dioxide", "Oxygen", "Nitrogen", "Hydrogen"],
+      "answerIndex": 0
+    }
+  ]
+}

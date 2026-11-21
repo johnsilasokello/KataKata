@@ -1,0 +1,12 @@
+[
+  {"name": "Aisha K.", "xp": 2400, "level": "S6", "streak": 12},
+  {"name": "Brian M.", "xp": 2100, "level": "S6", "streak": 9},
+  {"name": "Tendo R.", "xp": 1850, "level": "S5", "streak": 7},
+  {"name": "Namukasa J.", "xp": 1600, "level": "S5", "streak": 5},
+  {"name": "Opio D.", "xp": 1350, "level": "S4", "streak": 4},
+  {"name": "Nalwoga P.", "xp": 1100, "level": "S4", "streak": 3},
+  {"name": "Ssemwanga T.", "xp": 900, "level": "S3", "streak": 6},
+  {"name": "Akello B.", "xp": 750, "level": "S3", "streak": 2},
+  {"name": "Mugisha C.", "xp": 500, "level": "S2", "streak": 1},
+  {"name": "Nansubuga E.", "xp": 300, "level": "S1", "streak": 1}
+]
