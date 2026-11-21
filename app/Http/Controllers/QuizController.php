@@ -75,37 +75,10 @@ class QuizController extends Controller
             ? $request->input('difficulty') : 'medium';
 
         if (!isset($this->subjects[$level][$subject])) {
-            $subject = 'biology';
-        }
-        $categoryId = $this->subjects[$level][$subject]['id'];
-
-        try {
-            $response = Http::timeout(5)->get('https://opentdb.com/api.php', [
-                'amount'     => 1,
-                'category'   => $categoryId,
-                'type'       => 'multiple',
-                'difficulty' => $difficulty,
-            ]);
-
-            $data = $response->json();
-
-            if (($data['response_code'] ?? 1) === 0 && !empty($data['results'])) {
-                $q       = $data['results'][0];
-                $options = array_merge([$q['correct_answer']], $q['incorrect_answers']);
-                shuffle($options);
-                $correctIndex = array_search($q['correct_answer'], $options);
-
-                return response()->json([
-                    'question'    => html_entity_decode($q['question']),
-                    'options'     => array_map('html_entity_decode', $options),
-                    'answerIndex' => $correctIndex,
-                    'source'      => 'live',
-                ]);
-            }
-        } catch (\Exception $e) {
-            // fall through to cache
+            $subject = array_key_first($this->subjects[$level]);
         }
 
+        // Primary: serve from UNEB Uganda syllabus question bank
         return $this->fallbackQuestion($level, $subject, $difficulty);
     }
 
