@@ -27,14 +27,12 @@ class QuizController extends Controller
         ],
     ];
 
-    // XP awarded per correct answer
     private array $xpMap = [
         'easy'   => 30,
         'medium' => 50,
         'hard'   => 80,
     ];
 
-    // A-level bonus on top of difficulty XP
     private int $aLevelBonus = 20;
 
     public function index()
@@ -44,8 +42,8 @@ class QuizController extends Controller
 
     public function quiz(Request $request)
     {
-        $level   = in_array($request->get('level'), ['o', 'a']) ? $request->get('level') : 'o';
-        $subject = $request->get('subject', 'biology');
+        $level      = in_array($request->get('level'), ['o', 'a']) ? $request->get('level') : 'o';
+        $subject    = $request->get('subject', 'biology');
         if (!isset($this->subjects[$level][$subject])) {
             $subject = array_key_first($this->subjects[$level]);
         }
@@ -59,6 +57,16 @@ class QuizController extends Controller
             'difficulty'  => $difficulty,
             'xpPerQ'      => $this->xpMap[$difficulty] + ($level === 'a' ? $this->aLevelBonus : 0),
         ]);
+    }
+
+    public function mock()
+    {
+        return view('mock', ['subjects' => $this->subjects]);
+    }
+
+    public function progress()
+    {
+        return view('progress', ['subjects' => $this->subjects]);
     }
 
     public function leaderboard()
@@ -78,18 +86,55 @@ class QuizController extends Controller
             $subject = array_key_first($this->subjects[$level]);
         }
 
-        // Primary: serve from UNEB Uganda syllabus question bank
-        return $this->fallbackQuestion($level, $subject, $difficulty);
+        return $this->serveQuestion($level, $subject, $difficulty);
+    }
+
+    public function getMockQuestions(Request $request)
+    {
+        $level    = in_array($request->input('level'), ['o', 'a']) ? $request->input('level') : 'o';
+        $subjects = array_keys($this->subjects[$level]);
+        $count    = min((int) $request->input('count', 40), 40);
+
+        $cache    = json_decode(file_get_contents(base_path('data/questions.json')), true);
+        $pool     = [];
+
+        // Collect all available questions across subjects and difficulties
+        foreach ($subjects as $subj) {
+            foreach (['easy', 'medium', 'hard'] as $diff) {
+                $key = "{$level}_{$subj}_{$diff}";
+                if (!empty($cache[$key])) {
+                    foreach ($cache[$key] as $q) {
+                        $pool[] = array_merge($q, ['subject' => $subj, 'difficulty' => $diff]);
+                    }
+                }
+            }
+        }
+
+        shuffle($pool);
+        $selected = array_slice($pool, 0, $count);
+
+        return response()->json(['questions' => $selected, 'total' => count($selected)]);
     }
 
     public function getExplanation(Request $request)
     {
-        $question   = $request->input('question');
-        $answer     = $request->input('answer');
-        $subject    = $request->input('subject', 'biology');
-        $level      = $request->input('level', 'o');
-        $luganda    = $request->boolean('luganda', false);
-        $hfToken    = env('HUGGINGFACE_API_TOKEN', '');
+        $question = $request->input('question');
+        $answer   = $request->input('answer');
+        $subject  = $request->input('subject', 'biology');
+        $level    = $request->input('level', 'o');
+        $luganda  = $request->boolean('luganda', false);
+        $hfToken  = env('HUGGINGFACE_API_TOKEN', '');
+
+        // Check if question has hardcoded explanation
+        $inlineExpl    = $request->input('inline_explanation', '');
+        $inlineExplLg  = $request->input('inline_explanation_lg', '');
+
+        if ($luganda && !empty($inlineExplLg)) {
+            return response()->json(['explanation' => $inlineExplLg, 'source' => 'hardcoded']);
+        }
+        if (!$luganda && !empty($inlineExpl)) {
+            return response()->json(['explanation' => $inlineExpl, 'source' => 'hardcoded']);
+        }
 
         if (empty($hfToken)) {
             return response()->json(['explanation' => $this->fallbackExplanation($answer, $luganda)]);
@@ -97,7 +142,7 @@ class QuizController extends Controller
 
         $levelLabel = $level === 'a' ? 'A-level' : 'O-level';
         $lang       = $luganda ? 'in simple Luganda (Ugandan language)' : 'in simple English';
-        $prompt     = "You are a UNEB Uganda $levelLabel examiner. Explain briefly $lang why the answer to this question is correct.\nQuestion: $question\nCorrect answer: $answer\nExplanation (2 sentences max):";
+        $prompt     = "You are a UNEB Uganda {$levelLabel} examiner. Explain briefly {$lang} why the answer to this question is correct.\nQuestion: {$question}\nCorrect answer: {$answer}\nExplanation (2 sentences max):";
 
         try {
             $response = Http::timeout(8)
@@ -110,28 +155,30 @@ class QuizController extends Controller
             $result = $response->json();
             $text   = $result[0]['generated_text'] ?? $this->fallbackExplanation($answer, $luganda);
 
-            return response()->json(['explanation' => $text]);
+            return response()->json(['explanation' => $text, 'source' => 'ai']);
         } catch (\Exception $e) {
             return response()->json(['explanation' => $this->fallbackExplanation($answer, $luganda)]);
         }
     }
 
-    private function fallbackQuestion(string $level, string $subject, string $difficulty)
+    private function serveQuestion(string $level, string $subject, string $difficulty)
     {
         $cache = json_decode(file_get_contents(base_path('data/questions.json')), true);
-        $key   = $level . '_' . $subject . '_' . $difficulty;
-        $pool  = $cache[$key] ?? $cache[$level . '_' . $subject . '_medium']
+        $key   = "{$level}_{$subject}_{$difficulty}";
+        $pool  = $cache[$key]
+               ?? $cache["{$level}_{$subject}_medium"]
                ?? $cache['o_biology_medium'];
-        $q     = $pool[array_rand($pool)];
 
-        return response()->json(array_merge($q, ['source' => 'cache']));
+        $q = $pool[array_rand($pool)];
+
+        return response()->json(array_merge($q, ['source' => 'uneb']));
     }
 
     private function fallbackExplanation(string $answer, bool $luganda): string
     {
         if ($luganda) {
-            return "Ey'okuddamu ery'otuufu kwe: \"$answer\". Teeka omwoyo ku nsomo eno.";
+            return "Ey'okuddamu ery'otuufu kwe: \"{$answer}\". Teeka omwoyo ku nsomo eno.";
         }
-        return "The correct answer is \"$answer\". Review this topic to reinforce your understanding.";
+        return "The correct answer is \"{$answer}\". Review this topic to reinforce your understanding.";
     }
 }

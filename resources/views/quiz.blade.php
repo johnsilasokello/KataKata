@@ -6,12 +6,12 @@
     {{-- Header --}}
     <div class="flex items-center justify-between mb-4">
         <div>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 flex-wrap">
                 <h2 class="text-2xl font-black text-green-700">{{ $subjectName }}</h2>
                 <span class="text-xs font-bold px-2 py-0.5 rounded-full {{ $level === 'a' ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700' }}">
                     {{ strtoupper($level) }}-Level
                 </span>
-                <span class="text-xs font-bold px-2 py-0.5 rounded-full
+                <span id="diff-badge" class="text-xs font-bold px-2 py-0.5 rounded-full
                     {{ $difficulty === 'easy' ? 'bg-green-50 text-green-600' : ($difficulty === 'hard' ? 'bg-red-50 text-red-600' : 'bg-yellow-50 text-yellow-600') }}">
                     {{ ucfirst($difficulty) }}
                 </span>
@@ -28,16 +28,19 @@
                 <div class="text-xs text-gray-400">XP</div>
             </div>
             <div class="text-center">
-                <div class="level-badge text-sm font-bold bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full" id="level-badge">S1</div>
+                <div class="text-sm font-bold bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full level-badge" id="level-badge">S1</div>
                 <div class="text-xs text-gray-400">level</div>
             </div>
         </div>
     </div>
 
     {{-- XP Bar --}}
-    <div class="bg-gray-200 rounded-full h-3 mb-5 overflow-hidden">
+    <div class="bg-gray-200 rounded-full h-3 mb-4 overflow-hidden">
         <div id="xp-bar" class="xp-bar bg-gradient-to-r from-green-500 to-yellow-400 h-3 rounded-full" style="width:0%"></div>
     </div>
+
+    {{-- Adaptive difficulty notification --}}
+    <div id="adaptive-notice" class="hidden mb-4 px-4 py-3 rounded-xl text-sm font-semibold flex items-center gap-2"></div>
 
     {{-- Question card --}}
     <div id="question-card" class="bg-white rounded-2xl shadow-lg p-6 mb-4 min-h-48">
@@ -60,14 +63,14 @@
             <span id="feedback-icon" class="text-2xl"></span>
             <span id="feedback-title" class="font-bold text-lg"></span>
         </div>
-        <p id="explanation-text" class="text-gray-600 text-sm leading-relaxed"></p>
-        <div class="flex gap-3 mt-4">
+        <p id="explanation-text" class="text-gray-600 text-sm leading-relaxed mb-4"></p>
+        <div class="flex gap-3 flex-wrap">
             <button onclick="nextQuestion()"
-                class="bg-green-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-700 transition-colors text-sm">
+                class="bg-green-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-700 text-sm">
                 Next Question →
             </button>
             <button onclick="toggleLuganda()" id="luganda-btn"
-                class="border border-green-300 text-green-700 px-4 py-2 rounded-full font-semibold hover:bg-green-50 transition-colors text-sm">
+                class="border border-green-300 text-green-700 px-4 py-2 rounded-full font-semibold hover:bg-green-50 text-sm">
                 🇺🇬 Luganda
             </button>
         </div>
@@ -77,17 +80,13 @@
     <div id="score-summary" class="hidden bg-white rounded-2xl shadow-lg p-6 text-center">
         <div class="text-5xl mb-3">🎉</div>
         <h3 class="text-2xl font-black text-green-700 mb-1">Round Complete!</h3>
-        <p class="text-gray-500 mb-4">You answered <span id="summary-correct" class="font-bold text-green-600"></span> / 10 correctly</p>
-        <div class="flex gap-3 justify-center">
-            <button onclick="restartQuiz()" class="bg-green-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-green-700">
-                Play Again
-            </button>
-            <a href="{{ route('home') }}" class="border-2 border-gray-200 text-gray-600 px-6 py-2.5 rounded-full font-semibold hover:bg-gray-50">
-                Change Subject
-            </a>
-            <a href="{{ route('leaderboard') }}" class="border-2 border-yellow-400 text-yellow-700 px-6 py-2.5 rounded-full font-semibold hover:bg-yellow-50">
-                🏆 Leaderboard
-            </a>
+        <p class="text-gray-500 mb-2">You answered <span id="summary-correct" class="font-bold text-green-600"></span> / 10 correctly</p>
+        <p class="text-sm text-gray-400 mb-4">XP earned this round: <span id="summary-xp" class="font-bold text-green-500"></span></p>
+        <div class="flex gap-3 justify-center flex-wrap">
+            <button onclick="restartQuiz()" class="bg-green-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-green-700">Play Again</button>
+            <a href="{{ route('mock') }}" class="bg-blue-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-blue-700">📝 Mock Exam</a>
+            <a href="{{ route('progress') }}" class="border-2 border-purple-400 text-purple-700 px-6 py-2.5 rounded-full font-semibold hover:bg-purple-50">📊 My Progress</a>
+            <a href="{{ route('leaderboard') }}" class="border-2 border-yellow-400 text-yellow-700 px-6 py-2.5 rounded-full font-semibold hover:bg-yellow-50">🏆 Leaderboard</a>
         </div>
     </div>
 
@@ -100,12 +99,15 @@
 const el      = document.getElementById('app').dataset;
 const SUBJECT = el.subject;
 const LEVEL   = el.level;
-const DIFF    = el.difficulty;
-const XP_PER  = parseInt(el.xp);
 const CSRF    = document.querySelector('meta[name="csrf-token"]').content;
 
+// Adaptive difficulty
+let currentDifficulty = el.difficulty;
+let consecutiveWrong  = 0;
+let consecutiveRight  = 0;
+
 let state = JSON.parse(localStorage.getItem('katakataState') || '{}');
-state = Object.assign({ xp: 0, streak: 0, level: 'S1', qNum: 1, correct: 0 }, state);
+state = Object.assign({ xp: 0, streak: 0, level: 'S1', qNum: 1, correct: 0, xpThisRound: 0 }, state);
 
 let currentQ    = null;
 let answered    = false;
@@ -113,6 +115,14 @@ let lugandaMode = false;
 
 const LEVELS       = ['S1','S2','S3','S4','S5','S6'];
 const XP_PER_LEVEL = 500;
+const DIFF_ORDER   = ['easy', 'medium', 'hard'];
+
+const XP_MAP = { easy: 30, medium: 50, hard: 80 };
+const A_BONUS = 20;
+
+function getXpPerQ() {
+    return XP_MAP[currentDifficulty] + (LEVEL === 'a' ? A_BONUS : 0);
+}
 
 function xpToLevel(xp) {
     return LEVELS[Math.min(Math.floor(xp / XP_PER_LEVEL), LEVELS.length - 1)];
@@ -122,12 +132,56 @@ function xpProgress(xp) {
 }
 function saveState() { localStorage.setItem('katakataState', JSON.stringify(state)); }
 
+// Update mastery tracking
+function updateMastery(correct) {
+    const progress = JSON.parse(localStorage.getItem('katakataProgress') || '{}');
+    const key = `${LEVEL}_${SUBJECT}_${currentDifficulty}`;
+    if (!progress[key]) progress[key] = { correct: 0, total: 0 };
+    progress[key].total++;
+    if (correct) progress[key].correct++;
+    localStorage.setItem('katakataProgress', JSON.stringify(progress));
+}
+
 function updateUI() {
     document.getElementById('xp-display').textContent   = state.xp;
     document.getElementById('streak-count').textContent = state.streak;
     document.getElementById('level-badge').textContent  = state.level;
     document.getElementById('xp-bar').style.width       = xpProgress(state.xp) + '%';
     document.getElementById('q-counter').textContent    = state.qNum;
+}
+
+// Adaptive difficulty engine
+function checkAdaptive() {
+    const notice = document.getElementById('adaptive-notice');
+    if (consecutiveWrong >= 3) {
+        const idx = DIFF_ORDER.indexOf(currentDifficulty);
+        if (idx > 0) {
+            currentDifficulty = DIFF_ORDER[idx - 1];
+            consecutiveWrong = 0;
+            notice.className = 'mb-4 px-4 py-3 rounded-xl text-sm font-semibold flex items-center gap-2 bg-blue-50 text-blue-700 border border-blue-200';
+            notice.innerHTML = `🤖 <span>AI adjusted difficulty to <strong>${currentDifficulty}</strong> — keep going!</span>`;
+            notice.classList.remove('hidden');
+            const badge = document.getElementById('diff-badge');
+            const colors = { easy: 'bg-green-50 text-green-600', medium: 'bg-yellow-50 text-yellow-600', hard: 'bg-red-50 text-red-600' };
+            badge.className = `text-xs font-bold px-2 py-0.5 rounded-full ${colors[currentDifficulty]}`;
+            badge.textContent = currentDifficulty.charAt(0).toUpperCase() + currentDifficulty.slice(1);
+        }
+    } else if (consecutiveRight >= 5) {
+        const idx = DIFF_ORDER.indexOf(currentDifficulty);
+        if (idx < DIFF_ORDER.length - 1) {
+            currentDifficulty = DIFF_ORDER[idx + 1];
+            consecutiveRight = 0;
+            notice.className = 'mb-4 px-4 py-3 rounded-xl text-sm font-semibold flex items-center gap-2 bg-green-50 text-green-700 border border-green-200';
+            notice.innerHTML = `🚀 <span>AI levelled up difficulty to <strong>${currentDifficulty}</strong> — you're on fire!</span>`;
+            notice.classList.remove('hidden');
+            const badge = document.getElementById('diff-badge');
+            const colors = { easy: 'bg-green-50 text-green-600', medium: 'bg-yellow-50 text-yellow-600', hard: 'bg-red-50 text-red-600' };
+            badge.className = `text-xs font-bold px-2 py-0.5 rounded-full ${colors[currentDifficulty]}`;
+            badge.textContent = currentDifficulty.charAt(0).toUpperCase() + currentDifficulty.slice(1);
+        }
+    } else {
+        notice.classList.add('hidden');
+    }
 }
 
 async function loadQuestion() {
@@ -142,7 +196,7 @@ async function loadQuestion() {
         const res = await fetch('{{ route("api.question") }}', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': CSRF },
-            body: JSON.stringify({ subject: SUBJECT, level: LEVEL, difficulty: DIFF }),
+            body: JSON.stringify({ subject: SUBJECT, level: LEVEL, difficulty: currentDifficulty }),
         });
         currentQ = await res.json();
     } catch(e) { return; }
@@ -169,6 +223,7 @@ async function selectAnswer(index, btn) {
     answered = true;
 
     const correct = index === currentQ.answerIndex;
+
     document.querySelectorAll('.option-btn').forEach((b, i) => {
         b.disabled = true;
         if (i === currentQ.answerIndex) {
@@ -180,17 +235,24 @@ async function selectAnswer(index, btn) {
     }
 
     if (correct) {
-        const earned = XP_PER + (state.streak * 5);
-        state.xp     += earned;
-        state.streak += 1;
-        state.correct += 1;
+        consecutiveWrong = 0;
+        consecutiveRight++;
+        const earned = getXpPerQ() + (state.streak * 5);
+        state.xp         += earned;
+        state.streak     += 1;
+        state.correct    += 1;
+        state.xpThisRound += earned;
         const newLevel = xpToLevel(state.xp);
         if (newLevel !== state.level) { state.level = newLevel; triggerLevelUp(); }
         if (state.streak >= 3 && state.streak % 3 === 0) smallConfetti();
     } else {
+        consecutiveRight = 0;
+        consecutiveWrong++;
         state.streak = 0;
     }
 
+    checkAdaptive();
+    updateMastery(correct);
     saveState();
     updateUI();
     await showExplanation(correct);
@@ -201,27 +263,14 @@ async function showExplanation(correct) {
     card.classList.remove('hidden', 'border-green-500', 'border-red-400');
     card.classList.add(correct ? 'border-green-500' : 'border-red-400');
     document.getElementById('feedback-icon').textContent  = correct ? '✅' : '❌';
-    const earned = correct ? XP_PER + ((state.streak - 1) * 5) : 0;
+    const earned = correct ? getXpPerQ() + ((state.streak - 1) * 5) : 0;
     document.getElementById('feedback-title').textContent = correct ? `Correct! +${earned} XP` : 'Not quite...';
-    document.getElementById('explanation-text').textContent = 'Loading explanation...';
 
-    try {
-        const res = await fetch('{{ route("api.explain") }}', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': CSRF },
-            body: JSON.stringify({
-                question: currentQ.question,
-                answer:   currentQ.options[currentQ.answerIndex],
-                subject:  SUBJECT,
-                level:    LEVEL,
-                luganda:  lugandaMode,
-            }),
-        });
-        const data = await res.json();
-        document.getElementById('explanation-text').textContent = data.explanation;
-    } catch(e) {
-        document.getElementById('explanation-text').textContent = 'Correct answer: ' + currentQ.options[currentQ.answerIndex];
-    }
+    // Use hardcoded explanation immediately — no loading state needed
+    const expl   = currentQ.explanation || '';
+    const explLg = currentQ.explanation_lg || '';
+    const display = (lugandaMode && explLg) ? explLg : (expl || `The correct answer is: ${currentQ.options[currentQ.answerIndex]}`);
+    document.getElementById('explanation-text').textContent = display;
 }
 
 function nextQuestion() {
@@ -236,9 +285,11 @@ function showSummary() {
     document.getElementById('feedback-card').classList.add('hidden');
     document.getElementById('score-summary').classList.remove('hidden');
     document.getElementById('summary-correct').textContent = state.correct;
+    document.getElementById('summary-xp').textContent = state.xpThisRound + ' XP';
     bigConfetti();
-    state.qNum    = 1;
-    state.correct = 0;
+    state.qNum        = 1;
+    state.correct     = 0;
+    state.xpThisRound = 0;
     saveState();
 }
 
@@ -247,24 +298,14 @@ function restartQuiz() {
     loadQuestion();
 }
 
-async function toggleLuganda() {
+function toggleLuganda() {
     lugandaMode = !lugandaMode;
     document.getElementById('luganda-btn').textContent = lugandaMode ? '🇬🇧 English' : '🇺🇬 Luganda';
     if (currentQ && answered) {
-        document.getElementById('explanation-text').textContent = 'Loading...';
-        try {
-            const res = await fetch('{{ route("api.explain") }}', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': CSRF },
-                body: JSON.stringify({
-                    question: currentQ.question,
-                    answer:   currentQ.options[currentQ.answerIndex],
-                    subject:  SUBJECT, level: LEVEL, luganda: lugandaMode,
-                }),
-            });
-            const data = await res.json();
-            document.getElementById('explanation-text').textContent = data.explanation;
-        } catch(e) {}
+        const expl   = currentQ.explanation || '';
+        const explLg = currentQ.explanation_lg || '';
+        document.getElementById('explanation-text').textContent =
+            (lugandaMode && explLg) ? explLg : (expl || `The correct answer is: ${currentQ.options[currentQ.answerIndex]}`);
     }
 }
 
@@ -277,9 +318,7 @@ function triggerLevelUp() {
     badge.style.background = '#facc15';
 }
 
-function smallConfetti() {
-    confetti({ particleCount: 60, spread: 50, origin: { y: 0.6 } });
-}
+function smallConfetti() { confetti({ particleCount: 60, spread: 50, origin: { y: 0.6 } }); }
 function bigConfetti() {
     confetti({ particleCount: 150, spread: 90, origin: { y: 0.5 } });
     setTimeout(() => confetti({ particleCount: 100, spread: 70, origin: { x: 0.1, y: 0.5 } }), 300);
