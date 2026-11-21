@@ -1,61 +1,123 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# KataKata — Gamified UNEB Revision
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+> "UNEB decides Ugandan futures. KataKata makes revision addictive — Duolingo for Uganda's exams."
 
-## About Laravel
+Built for **Cursor Hackathon Kampala** · Solo project · 75-min build window
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## What it does
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+KataKata is an AI-powered, gamified revision app for Uganda's UNEB O-Level and A-Level exams. Students answer UNEB syllabus questions, earn XP, build streaks, level up, and compete on a leaderboard — all with Luganda explanation support.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Features
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **O-Level & A-Level** — separate subject tracks per exam level
+- **6 O-Level subjects** — Biology, History, Geography, Science, Mathematics, English
+- **7 A-Level subjects** — Biology, Chemistry, Physics, History, Geography, Mathematics, Economics
+- **3 difficulty modes** — Easy (30 XP), Medium (50 XP), Hard (80 XP)
+- **A-Level XP bonus** — +20 XP per correct answer for harder content
+- **Streak multiplier** — longer streaks = more XP per question
+- **Level system** — S1 → S6 as XP grows
+- **Confetti celebrations** — on level-up and round completion
+- **Luganda toggle** — switch explanations between English and Luganda
+- **AI explanations** — powered by HuggingFace free API (optional)
+- **Offline fallback** — full UNEB question bank works with no internet
+- **Leaderboard** — compete with other students
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Tech Stack
 
-### Premium Partners
+| Layer | Technology |
+|-------|-----------|
+| Backend | Laravel 8 (PHP 7.4) |
+| Frontend | Blade + Tailwind CSS (CDN) |
+| Gamification | Vanilla JS + canvas-confetti |
+| Questions | UNEB Uganda syllabus question bank (`data/questions.json`) |
+| AI explanations | HuggingFace Inference API — `google/flan-t5-large` (free, optional) |
+| State | `localStorage` (no database required) |
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+---
 
-## Contributing
+## Getting Started
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Requirements
+- PHP 7.4+
+- Composer
+- XAMPP or any local server
 
-## Code of Conduct
+### Installation
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+git clone https://github.com/johnsilasokello/KataKata.git
+cd KataKata
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan serve
+```
 
-## Security Vulnerabilities
+Visit: `http://127.0.0.1:8000`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Optional: AI Explanations
+
+Get a free API key at [huggingface.co](https://huggingface.co) → Settings → Access Tokens.
+
+Add to `.env`:
+```
+HUGGINGFACE_API_TOKEN=hf_your_token_here
+```
+
+Without a token, the app uses built-in fallback explanations — everything still works.
+
+---
+
+## Project Structure
+
+```
+app/Http/Controllers/QuizController.php   # Routes, question serving, AI explanation
+data/
+  questions.json     # Full UNEB Uganda syllabus question bank (O & A level)
+  leaderboard.json   # Seeded leaderboard with Ugandan names
+resources/views/
+  home.blade.php     # Subject picker with O/A level toggle + difficulty selector
+  quiz.blade.php     # Quiz engine — questions, XP, streaks, confetti, Luganda toggle
+  leaderboard.blade.php
+  layouts/app.blade.php
+routes/web.php
+```
+
+---
+
+## How it works
+
+1. Student picks **exam level** (O or A), **subject**, and **difficulty**
+2. Question served from UNEB Uganda syllabus question bank
+3. Student answers → instant feedback + AI explanation (English or Luganda)
+4. Correct answer → XP earned, streak incremented, level checked
+5. Level-up → confetti 🎉
+6. After 10 questions → round summary + leaderboard
+
+---
+
+## Impact
+
+Uganda has over **1 million UNEB candidates** annually. Most revise from printed past papers with no feedback. KataKata gives every student an intelligent, gamified tutor in their pocket — mapped to the exact Uganda national curriculum.
+
+---
+
+## Built with
+
+- [Laravel](https://laravel.com)
+- [Tailwind CSS](https://tailwindcss.com)
+- [canvas-confetti](https://github.com/catdad/canvas-confetti)
+- [HuggingFace Inference API](https://huggingface.co/inference-api)
+
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+MIT
